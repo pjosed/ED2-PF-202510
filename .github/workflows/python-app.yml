@@ -8,10 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: windows-latest  # Solo Windows para compatibilidad con pywin32
 
     steps:
       - name: Checkout repository
@@ -35,3 +32,4 @@ jobs:
       - name: Run tests with coverage
         run: |
           pytest --cov=. --cov-report=term-missing
+
