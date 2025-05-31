@@ -1,2 +1,6 @@
 ipynbs/.ipynb_checkpoints
+ventas.csv
+ventas.json
+*_ordenado.txt
+resultados.json
 .env
