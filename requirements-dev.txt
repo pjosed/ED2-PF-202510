@@ -1,4 +1,10 @@
 -r requirements.txt
+
+# Dev tools
 pytest
 pytest-cov
 flake8
+
+# Solo instalar pywin32 en Windows
+pywin32; sys_platform == "win32"
+
