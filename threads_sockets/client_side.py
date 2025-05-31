@@ -6,6 +6,21 @@ import sys
 import threading
 from load_ventas import cargar_ventas_desde_csv
 from algorithms.sorting_algorithms import quicksort, mergesort, heapsort, radixsort
+from dotenv import load_dotenv
+import os
+
+# Carga variables desde el archivo .env correspondiente
+env_file = ".env.dev" if os.getenv("ENV") != "production" else ".env.prod"
+load_dotenv(env_file)
+
+# Accede a las variables
+modo = os.getenv("MODE")
+debug = os.getenv("DEBUG")
+log_level = os.getenv("LOG_LEVEL")
+
+print(f"Modo actual: {modo}, Debug: {debug}, Log Level: {log_level}")
+
+
 
 algos = {
     "quicksort": quicksort,
