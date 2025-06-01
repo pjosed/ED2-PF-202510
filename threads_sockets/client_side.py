@@ -60,9 +60,9 @@ def ejecutar_algoritmo(nombre_algo):
         client.connect((SERVER, PORT))
         client.sendall(json.dumps(payload).encode("utf-8"))
         client.close()
-        print(f"✅ {nombre_algo} completado y enviado. Tiempo: {tiempo_total:.4f} segundos.")
+        print(f"{nombre_algo} completado y enviado. Tiempo: {tiempo_total:.4f} segundos.")
     except Exception as e:
-        print(f"❌ Error al enviar datos de {nombre_algo}: {e}")
+        print(f"Error al enviar datos de {nombre_algo}: {e}")
 
     # Guardar en resultados.json
     if os.path.exists("resultados.json"):
@@ -90,11 +90,11 @@ if __name__ == "__main__":
 
         for h in hilos:
             h.join()
-        print("✅ Todos los algoritmos completados.")
+        print("Todos los algoritmos completados.")
     elif seleccion in algos:
         ejecutar_algoritmo(seleccion)
     else:
-        print("❌ Algoritmo no válido. Intenta con: quicksort, mergesort, heapsort, bubblesort o todos.")
+        print("Algoritmo no válido. Intenta con: quicksort, mergesort, heapsort, bubblesort o todos.")
 
 # Comparar resultados
 
@@ -112,4 +112,4 @@ for r in resultados_ordenados:
 
 # Mostrar el más rápido
 ganador = resultados_ordenados[0]
-print(f"\n🏆 El algoritmo más rápido fue: {ganador['algoritmo']} con {ganador['tiempo']:.5f} segundos.")
+print(f"\n El algoritmo más rápido fue: {ganador['algoritmo']} con {ganador['tiempo']:.5f} segundos.")
