@@ -1,0 +1,4 @@
+{
+  "python.analysis.extraPaths": ["./threads_sockets"],
+  "python.linting.pylintArgs": ["--init-hook", "import sys; sys.path.append('./threads_sockets')"]
+}

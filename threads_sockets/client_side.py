@@ -1,11 +1,11 @@
+from load_ventas import cargar_ventas_desde_csv
+from algorithms.sorting_algorithms import quicksort, mergesort, heapsort, radixsort
 import socket
 import json
 import time
 import os
 import sys
 import threading
-from load_ventas import cargar_ventas_desde_csv
-from algorithms.sorting_algorithms import quicksort, mergesort, heapsort, radixsort
 from dotenv import load_dotenv
 import os
 
