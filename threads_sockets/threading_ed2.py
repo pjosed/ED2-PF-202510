@@ -1,4 +1,3 @@
-import random
 import threading
 import time
 import time
@@ -30,7 +29,7 @@ if __name__ == '__main__':
         "quicksort": quicksort,
         "mergesort": mergesort,
         "heapsort": heapsort,
-        "bubblesort": radixsort
+        "radixsort": radixsort
     }
 
     threads = []
