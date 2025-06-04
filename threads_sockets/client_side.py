@@ -1,5 +1,5 @@
-from threads_sockets.load_ventas import cargar_ventas_desde_csv
-from threads_sockets.algorithms.sorting_algorithms import quicksort, mergesort, heapsort, radixsort
+from load_ventas import cargar_ventas_desde_csv
+from algorithms.sorting_algorithms import quicksort, mergesort, heapsort, radixsort
 import socket
 import json
 import time

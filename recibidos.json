@@ -40,5 +40,29 @@
         "tiempo": 4.393615484237671,
         "cantidad_datos": 1000000,
         "fecha": "2025-06-03T19:43:16.949214"
+    },
+    {
+        "algoritmo": "radixsort",
+        "tiempo": 13.664787530899048,
+        "cantidad_datos": 1000000,
+        "fecha": "2025-06-04T13:14:02.577577"
+    },
+    {
+        "algoritmo": "heapsort",
+        "tiempo": 20.255730628967285,
+        "cantidad_datos": 1000000,
+        "fecha": "2025-06-04T13:14:11.554892"
+    },
+    {
+        "algoritmo": "quicksort",
+        "tiempo": 29.08364701271057,
+        "cantidad_datos": 1000000,
+        "fecha": "2025-06-04T13:14:19.289154"
+    },
+    {
+        "algoritmo": "mergesort",
+        "tiempo": 54.34152054786682,
+        "cantidad_datos": 1000000,
+        "fecha": "2025-06-04T13:14:47.531113"
     }
 ]
