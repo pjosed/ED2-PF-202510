@@ -1,0 +1,44 @@
+[
+    {
+        "algoritmo": "quicksort",
+        "tiempo": 3.1163487434387207,
+        "cantidad_datos": 1000000,
+        "fecha": "2025-06-03T19:23:05.092736"
+    },
+    {
+        "algoritmo": "mergesort",
+        "tiempo": 9.962159395217896,
+        "cantidad_datos": 1000000,
+        "fecha": "2025-06-03T19:24:28.088048"
+    },
+    {
+        "algoritmo": "quicksort",
+        "tiempo": 3.1490426063537598,
+        "cantidad_datos": 1000000,
+        "fecha": "2025-06-03T19:27:52.107164"
+    },
+    {
+        "algoritmo": "mergesort",
+        "tiempo": 9.985479831695557,
+        "cantidad_datos": 1000000,
+        "fecha": "2025-06-03T19:28:23.360666"
+    },
+    {
+        "algoritmo": "quicksort",
+        "tiempo": 3.0719385147094727,
+        "cantidad_datos": 1000000,
+        "fecha": "2025-06-03T19:31:05.805181"
+    },
+    {
+        "algoritmo": "quicksort",
+        "tiempo": 3.0215096473693848,
+        "cantidad_datos": 1000000,
+        "fecha": "2025-06-03T19:33:12.011843"
+    },
+    {
+        "algoritmo": "quicksort",
+        "tiempo": 4.393615484237671,
+        "cantidad_datos": 1000000,
+        "fecha": "2025-06-03T19:43:16.949214"
+    }
+]

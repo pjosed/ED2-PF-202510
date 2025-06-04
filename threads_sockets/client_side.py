@@ -1,5 +1,5 @@
-from load_ventas import cargar_ventas_desde_csv
-from algorithms.sorting_algorithms import quicksort, mergesort, heapsort, radixsort
+from threads_sockets.load_ventas import cargar_ventas_desde_csv
+from threads_sockets.algorithms.sorting_algorithms import quicksort, mergesort, heapsort, radixsort
 import socket
 import json
 import time
@@ -8,6 +8,7 @@ import sys
 import threading
 from dotenv import load_dotenv
 import os
+from datetime import datetime
 
 # Carga variables desde el archivo .env correspondiente
 env_file = ".env.dev" if os.getenv("ENV") != "production" else ".env.prod"
@@ -34,10 +35,11 @@ PORT = 8080
 
 ventas = cargar_ventas_desde_csv()
 
-def ejecutar_algoritmo(nombre_algo):
+def ejecutar_algoritmo(nombre_algo, ip="127.0.0.1", port=8080):
+
     print(f"▶ Ejecutando {nombre_algo}...")
     algoritmo = algos[nombre_algo]
-    
+    print(f"ip recibida : {ip}")
     inicio = time.time()
     datos_ordenados = algoritmo(ventas.copy(), key=lambda x: x["CANTIDAD"])
     fin = time.time()
@@ -52,12 +54,13 @@ def ejecutar_algoritmo(nombre_algo):
     payload = {
         "algoritmo": nombre_algo,
         "tiempo": tiempo_total,
-        "cantidad_datos": len(ventas)
+        "cantidad_datos": len(ventas),
+        "fecha": datetime.now().isoformat()
     }
 
     try:
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client.connect((SERVER, PORT))
+        client.connect((ip, port))
         client.sendall(json.dumps(payload).encode("utf-8"))
         client.close()
         print(f"{nombre_algo} completado y enviado. Tiempo: {tiempo_total:.4f} segundos.")

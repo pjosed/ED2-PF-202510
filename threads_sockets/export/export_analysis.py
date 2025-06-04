@@ -1,5 +1,6 @@
 # export/export_analysis.py
-from db.sql_connection import get_connection, get_data
+
+from sql_connection import get_connection, get_data
 import pandas as pd
 import time
 import sys

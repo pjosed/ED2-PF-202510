@@ -1,13 +1,15 @@
 import socket
 import threading
 import json
+import os
 
 class ClientThread(threading.Thread):
     def __init__(self, clientAddress, clientsocket):
+        print("Nueva conexión:", clientAddress)
         super().__init__()
         self.csocket = clientsocket
         self.clientAddress = clientAddress
-        print("Nueva conexión:", clientAddress)
+        
 
     def run(self):
         try:
@@ -16,6 +18,15 @@ class ClientThread(threading.Thread):
             print(f"[{self.clientAddress}] -> {mensaje['algoritmo']} "
                   f"tardó {mensaje['tiempo']:.4f}s "
                   f"para {mensaje['cantidad_datos']} registros.")
+            # Guardar en recibidos.json
+            if os.path.exists("recibidos.json"):
+                with open("recibidos.json", "r") as f:
+                    recibidos = json.load(f)
+            else:
+                recibidos = []
+            recibidos.append(mensaje)
+            with open("recibidos.json", "w") as f:
+                json.dump(recibidos, f, indent=4)
         except Exception as e:
             print("Error al procesar datos del cliente:", e)
         finally:
@@ -33,3 +44,6 @@ while True:
     clientsock, clientAddress = server.accept()
     newthread = ClientThread(clientAddress, clientsock)
     newthread.start()
+
+
+
