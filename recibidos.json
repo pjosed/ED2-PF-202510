@@ -64,5 +64,11 @@
         "tiempo": 54.34152054786682,
         "cantidad_datos": 1000000,
         "fecha": "2025-06-04T13:14:47.531113"
+    },
+    {
+        "algoritmo": "quicksort",
+        "tiempo": 4.14723014831543,
+        "cantidad_datos": 1000000,
+        "fecha": "2025-06-04T21:34:00.563240"
     }
 ]

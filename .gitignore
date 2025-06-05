@@ -5,3 +5,4 @@ ventas.json
 resultados.json
 .env
 /threads_sockets/__pycache__
+/threads_sockets/algorithms/__pycache__

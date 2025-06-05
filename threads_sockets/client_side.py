@@ -1,3 +1,8 @@
+"""
+Módulo cliente para la ejecución de algoritmos de ordenamiento y comunicación con el servidor.
+Este módulo maneja la carga de datos, ejecución de algoritmos y envío de resultados al servidor.
+"""
+
 from threads_sockets.load_ventas import cargar_ventas_desde_csv
 from threads_sockets.algorithms.sorting_algorithms import quicksort, mergesort, heapsort, radixsort
 import socket
@@ -21,8 +26,7 @@ log_level = os.getenv("LOG_LEVEL")
 
 print(f"Modo actual: {modo}, Debug: {debug}, Log Level: {log_level}")
 
-
-
+# Diccionario de algoritmos disponibles
 algos = {
     "quicksort": quicksort,
     "mergesort": mergesort,
@@ -30,13 +34,30 @@ algos = {
     "radixsort": radixsort
 }
 
+# Configuración por defecto del servidor
 SERVER = "127.0.0.1"
 PORT = 8080
 
+# Carga de datos de ventas
 ventas = cargar_ventas_desde_csv()
 
 def ejecutar_algoritmo(nombre_algo, ip="127.0.0.1", port=8080):
-
+    """
+    Ejecuta un algoritmo de ordenamiento y envía los resultados al servidor.
+    
+    Args:
+        nombre_algo (str): Nombre del algoritmo a ejecutar
+        ip (str): Dirección IP del servidor
+        port (int): Puerto del servidor
+        
+    Returns:
+        None
+        
+    Example:
+        >>> ejecutar_algoritmo("quicksort", "127.0.0.1", 8080)
+        ▶ Ejecutando quicksort...
+        quicksort completado y enviado. Tiempo: 0.1234 segundos.
+    """
     print(f"▶ Ejecutando {nombre_algo}...")
     algoritmo = algos[nombre_algo]
     print(f"ip recibida : {ip}")
@@ -79,7 +100,6 @@ def ejecutar_algoritmo(nombre_algo, ip="127.0.0.1", port=8080):
     with open("resultados.json", "w") as f:
         json.dump(resultados, f, indent=4)
 
-
 if __name__ == "__main__":
     print("Algoritmos disponibles:", ", ".join(algos.keys()))
     seleccion = input("⤵ Escribí el nombre del algoritmo a ejecutar o 'todos' para correr todos: ").strip().lower()
@@ -99,20 +119,19 @@ if __name__ == "__main__":
     else:
         print("Algoritmo no válido. Intenta con: quicksort, mergesort, heapsort, bubblesort o todos.")
 
-# Comparar resultados
+    # Comparar resultados
+    with open("resultados.json", "r") as f:
+        resultados = json.load(f)
 
-with open("resultados.json", "r") as f:
-    resultados = json.load(f)
+    # Ordenar por tiempo
+    resultados_ordenados = sorted(resultados, key=lambda x: x["tiempo"])
 
-# Ordenar por tiempo
-resultados_ordenados = sorted(resultados, key=lambda x: x["tiempo"])
+    print("\n📊 Comparativa de algoritmos de ordenamiento:")
+    print("{:<12} | {:<10} | {:<15}".format("Algoritmo", "Tiempo (s)", "Cantidad de datos"))
+    print("-" * 45)
+    for r in resultados_ordenados:
+        print("{:<12} | {:<10.5f} | {:<15}".format(r["algoritmo"], r["tiempo"], r["cantidad_datos"]))
 
-print("\n📊 Comparativa de algoritmos de ordenamiento:")
-print("{:<12} | {:<10} | {:<15}".format("Algoritmo", "Tiempo (s)", "Cantidad de datos"))
-print("-" * 45)
-for r in resultados_ordenados:
-    print("{:<12} | {:<10.5f} | {:<15}".format(r["algoritmo"], r["tiempo"], r["cantidad_datos"]))
-
-# Mostrar el más rápido
-ganador = resultados_ordenados[0]
-print(f"\n El algoritmo más rápido fue: {ganador['algoritmo']} con {ganador['tiempo']:.5f} segundos.")
+    # Mostrar el más rápido
+    ganador = resultados_ordenados[0]
+    print(f"\n El algoritmo más rápido fue: {ganador['algoritmo']} con {ganador['tiempo']:.5f} segundos.")
