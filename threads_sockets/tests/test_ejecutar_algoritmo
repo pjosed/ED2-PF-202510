@@ -1,0 +1,54 @@
+import os
+import json
+import tempfile
+from unittest import mock
+from datetime import datetime
+import socket
+
+from client_side import ejecutar_algoritmo  # Import directo
+import client_side  # Para acceder a ventas y algos desde el módulo
+
+def test_ejecutar_algoritmo_crea_archivos_y_envia_socket():
+    nombre_algo = "quicksort"
+
+    # Mock del diccionario de algoritmos
+    client_side.algos = {
+        nombre_algo: lambda data, key=None: sorted(data, key=key)
+    }
+
+    # Mock de los datos de prueba
+    client_side.ventas = [
+        {"CANTIDAD": 3},
+        {"CANTIDAD": 1},
+        {"CANTIDAD": 2}
+    ]
+
+    # Mock de socket para evitar conexiones reales
+    with mock.patch("socket.socket") as mock_socket:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            os.chdir(tmpdir)  # Cambiar al directorio temporal
+
+            # Ejecutar la función
+            ejecutar_algoritmo(nombre_algo)
+
+            # Verificar archivo de salida ordenado
+            assert os.path.exists(f"{nombre_algo}_ordenado.txt")
+            with open(f"{nombre_algo}_ordenado.txt", "r") as f:
+                contenido = f.read()
+                assert "{'CANTIDAD': 1}" in contenido
+
+            # Verificar archivo resultados.json
+            assert os.path.exists("resultados.json")
+            with open("resultados.json", "r") as f:
+                resultados = json.load(f)
+                assert isinstance(resultados, list)
+                assert resultados[0]["algoritmo"] == nombre_algo
+                assert resultados[0]["cantidad_datos"] == 3
+                assert "tiempo" in resultados[0]
+                assert "fecha" in resultados[0]
+
+            # Verificar uso del socket
+            instancia_socket = mock_socket.return_value
+            instancia_socket.connect.assert_called_once()
+            instancia_socket.sendall.assert_called_once()
+            instancia_socket.close.assert_called_once()

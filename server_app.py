@@ -85,4 +85,4 @@ def update_table(n):
     return df.to_dict('records'), time_fig
 
 if __name__ == '__main__':
-    app.run_server(debug=True, port=8051) 
+    app.run(debug=True, port=8051) 
